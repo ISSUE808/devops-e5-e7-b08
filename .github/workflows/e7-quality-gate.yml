@@ -21,6 +21,8 @@ jobs:
     env:
       IMAGE: e7-draft:ci
       FAIL_DEMO: ${{ inputs.fail_demo }}
+      CANDIDATE: fixtures/ci-candidates/group-E5-20261022.Dockerfile
+      CANDIDATE_PROVENANCE: fixtures/ci-candidates/group-E5-20261022.provenance.json
     steps:
       - name: Check out the exact triggering revision
         uses: actions/checkout@v7.0.1
@@ -36,6 +38,25 @@ jobs:
           git rev-parse HEAD > work/ci/commit.txt
           docker version > work/ci/docker-version.txt
           python3 -m compileall -q services/draft/draft scripts
+
+      - name: Verify and record the group candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' | tee work/ci/candidate.sha256
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          candidate = Path(os.environ["CANDIDATE"])
+          provenance = json.loads(Path(os.environ["CANDIDATE_PROVENANCE"]).read_text(encoding="utf-8"))
+          digest = hashlib.sha256(candidate.read_bytes()).hexdigest()
+          if digest != provenance["build_result"]["candidate_sha256"]:
+              raise SystemExit("Group candidate differs from its recorded E6 input")
+          print(digest, candidate.as_posix())
+          PY
+          cp "$CANDIDATE" work/ci/candidate.Dockerfile
+          cp "$CANDIDATE_PROVENANCE" work/ci/candidate-provenance.json
 
       - name: Scan tracked sources and Git history
         shell: bash
@@ -64,7 +85,7 @@ jobs:
           if [[ "$FAIL_DEMO" == "true" ]]; then
             args+=(--case success --inject-bad-oracle)
           fi
-          python3 scripts/run_e7_b_gate.py --image "$IMAGE" --candidate fixtures/ci-candidates/DeepSeek-E5.Dockerfile --out work/ci/gate "${args[@]}" 2>&1 | tee work/ci/gate-console.log
+          python3 scripts/run_e7_b_gate.py --image "$IMAGE" --candidate "$CANDIDATE" --out work/ci/gate "${args[@]}" 2>&1 | tee work/ci/gate-console.log
 
       - name: Archive evidence even when checks fail
         if: always()

@@ -45,6 +45,10 @@ class WorkflowFailureTests(unittest.TestCase):
                     return 0
                 if argv[1:3] == ["image", "inspect"]:
                     stdout.write_text(json.dumps([{"Id": IMAGE}]))
+                    if mode == "inspect-failed":
+                        # Parseable stdout must not override a failed Docker command.
+                        stderr.write_text("Error response from daemon: image inspect failed")
+                        return 1
                     return 0
                 if argv[1] == "run":
                     Path(argv[argv.index("--cidfile") + 1]).write_text("c" * 64)
@@ -93,6 +97,18 @@ class WorkflowFailureTests(unittest.TestCase):
         self.assertEqual(report["status"], "FAILED")
         self.assertEqual(report["attempts"][1]["build_exit_code"], 1)
         self.assertNotIn("verification", report)
+
+    def test_image_inspect_failure_stops_before_verification(self):
+        report = self.exercise("inspect-failed")
+        self.assertEqual(report["status"], "FAILED")
+        self.assertIn("Cannot inspect built image", report["error"])
+        self.assertEqual(len(report["attempts"]), 2)
+        self.assertEqual(report["attempts"][0]["failure_class"], "MISSING_MAKE")
+        self.assertEqual(report["attempts"][0]["build_exit_code"], 1)
+        self.assertEqual(report["attempts"][1]["build_exit_code"], 0)
+        self.assertNotIn("image_id", report["attempts"][1])
+        self.assertNotIn("verification", report)
+        self.assertFalse(any(command[:2] == ["docker", "run"] for command in self.calls))
 
     def test_zero_exit_with_wrong_output_fails(self):
         report = self.exercise("wrong-output")

@@ -1,0 +1,26 @@
+{
+  "candidate_id": 1,
+  "iteration": "iter-01",
+  "strategy": "context-driven",
+  "provider_display_name": "Codex (current conversation)",
+  "model_version": "Not separately recorded",
+  "acquisition": "The user pasted the context-driven prompt into this Codex conversation and saved the assistant response as work/candidate/Dockerfile.",
+  "source": "Current Codex conversation, 2026-10-22",
+  "status": "BUILT_AND_VERIFIED",
+  "build_result": {
+    "run_dir": "work/e6-candidate-20261022-02/evidence",
+    "candidate_sha256": "f4c86d4ee120d8a9114b1454d3eb23b5014eb326cc5b524cb291bc3f67e4eccd",
+    "baseline_failure_class": "MISSING_MAKE",
+    "candidate_build_exit_code": 0,
+    "image_id": "sha256:c09603d6dbfb3f0c94276342d2118421e81c055485f22a9d57dde3270163a60b"
+  },
+  "program_verification_result": {
+    "network": "none",
+    "exit_code": 0,
+    "expected_output": "hello E3",
+    "actual_output": "hello E3\n",
+    "output_matches": true,
+    "offline_evidence_verifier_passed": true
+  },
+  "note": "Selected from the context-driven response because its prompt included the README requirement for a C compiler and GNU Make. The error-driven and context-driven replies shown in the conversation contain the same logical Dockerfile. E6 built the unchanged candidate and verified the exact image ID with networking disabled."
+}
