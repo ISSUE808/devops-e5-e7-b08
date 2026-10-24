@@ -6,7 +6,7 @@
 
 - 教师提供服务实现、原有 24 项测试、门禁脚本、镜像与依赖锁文件；本轮不修改生产算法。
 - 成员 3（241880492）新增镜像检查失败测试，验证可解析 stdout 不能覆盖非零退出码，失败时不得运行程序。整合后服务测试共 25 项。
-- 成员 4（241880546）负责接收核对、整合新增测试和本组候选、调整 CI 候选输入及归档信息；本轮使用 Codex 辅助，不把教学代码和成员 3 的测试归为本人原创。
+- 成员 4（241880546）负责接收核对、整合新增测试和本组候选、调整 CI 候选输入及归档信息。
 - 最终候选：[group-E5-20261022.Dockerfile](fixtures/ci-candidates/group-E5-20261022.Dockerfile)；[来源记录](fixtures/ci-candidates/group-E5-20261022.provenance.json)保留原始字段，精确模型版本未单独记录。
 - 原服务器位置为 `/root/devops-course/DevOps_1020_Student_Cloud/labs/B-draft/work/candidate/Dockerfile`，接收自成员 3 的 `E7-member3-241880492-20261023.tar.gz`，转存为上述仓库路径，未改变候选内容。
 
