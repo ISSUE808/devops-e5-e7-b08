@@ -4,9 +4,9 @@
 
 报告入口：[实验报告](docs/实验报告.md)、[验收记录](docs/验收记录.csv)、[证据索引与离线备份说明](docs/证据索引.md)。
 
-交付入口：分支 [`docs/e5-e7-report-and-acceptance`](https://github.com/ISSUE808/devops-e5-e7-b08/tree/docs/e5-e7-report-and-acceptance)，已验证代码提交 [`1a2bc46817276f0016cd28cbe8d3925b3acbded6`](https://github.com/ISSUE808/devops-e5-e7-b08/commit/1a2bc46817276f0016cd28cbe8d3925b3acbded6)，对应 [CI 40115868439](https://github.com/ISSUE808/devops-e5-e7-b08/actions/runs/40115868439)（15 项主机测试、26 项服务测试及五场景通过）。本次报告补充基于该代码版本，实际文档快照和哈希以交付清单为准；历史 PR #1 已合并不表示这些后续补充也已合入 main。提交时须明确分支与 SHA，不能只提供默认仓库首页。
+最终交付入口为 [`main`](https://github.com/ISSUE808/devops-e5-e7-b08/tree/main)。本次正常 PR 的合并 SHA、main 对应 CI、镜像及原始 artifact 见[主线交付验收记录](work/final-main-delivery-20261025/MAIN_DELIVERY_ACCEPTANCE.md)和包内 `DELIVERY_MANIFEST.json`；以该记录的实际结论为准，不用历史 PR #1 代替本次合并证明。
 
-正式交付包的精确提交及其 CI 另见[文档补充提交验收记录](work/document-delivery-20261025/CI_DOCUMENT_DELIVERY_ACCEPTANCE.md)和包内 `DELIVERY_MANIFEST.json`；该记录随离线包提供，不把代码基准 SHA 当作文档补充后的最终提交 SHA。
+合并前的整理分支为 [`docs/e5-e7-report-and-acceptance`](https://github.com/ISSUE808/devops-e5-e7-b08/tree/docs/e5-e7-report-and-acceptance)。已验证代码基准 [`1a2bc46817276f0016cd28cbe8d3925b3acbded6`](https://github.com/ISSUE808/devops-e5-e7-b08/commit/1a2bc46817276f0016cd28cbe8d3925b3acbded6)及其 [CI 40115868439](https://github.com/ISSUE808/devops-e5-e7-b08/actions/runs/40115868439)、后续[文档补充提交记录](work/document-delivery-20261025/CI_DOCUMENT_DELIVERY_ACCEPTANCE.md)分别保留，不与最终 main 合并版本混用。各阶段均核对 15 项主机测试、26 项服务测试及五个真实场景；原始证据随离线包提供。
 
 ## 代码和候选来源
 
